@@ -1,15 +1,17 @@
-import { FETCH_USER, FETCH_USER_SUCCESS, FETCH_USER_FAILED } from './constants';
+import { FETCH_CITY_REQUESTED, FETCH_CITY_SUCCESS, FETCH_CITY_FAILED } from './constants';
 
-export const fetchUser = username => ({
-  type: FETCH_USER,
+export const fetchCity = (username) => ({
+  type: FETCH_CITY_REQUESTED,
   payload: { username }
 });
 
-export const fetchUserSuccess = user => ({
-  type: FETCH_USER_SUCCESS,
-  payload: { user }
-});
+export const fetchUserSuccess = (data) => {
+  return {
+    type: FETCH_CITY_SUCCESS,
+    payload: data[0]
+  }
+};
 
 export const fetchUserFailed = () => ({
-  type: FETCH_USER_FAILED
+  type: FETCH_CITY_FAILED
 });

@@ -1,19 +1,25 @@
-import { FETCH_USER_SUCCESS, FETCH_USER_FAILED } from './constants';
+import { FETCH_CITY_REQUESTED, FETCH_CITY_SUCCESS, FETCH_CITY_FAILED } from './constants';
 import { combineReducers } from 'redux';
 
-const initialState = {};
+const initialState = {
+  isLoading: false,
+  data: null,
+  error: null,
+};
 
-export const user = (state = initialState, action) => {
+export const city = (state = initialState, action) => {
   switch (action.type) {
-    case FETCH_USER_SUCCESS:
-      return action.payload.user
-    case FETCH_USER_FAILED:
-      return {};
+    case FETCH_CITY_REQUESTED:
+      return { ...state, isLoading: true }
+    case FETCH_CITY_SUCCESS:
+      return { ...state, data: action.payload, error: null, isLoading: false }
+    case FETCH_CITY_FAILED:
+      return { ...state, error: 'not_found', data: null, isLoading: false }
     default:
       return state;
   }
 };
 
 export default combineReducers({
-  user
+  city
 });
