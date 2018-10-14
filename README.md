@@ -1,8 +1,6 @@
-# React RxJS GitHub Search
+# React RxJS City Finder
 
-This is the example code for the article `Reactive Redux State With RxJS`: http://ivanjov.com/reactive-redux-state-with-rxjs/
-
-![screenshot](https://raw.githubusercontent.com/ivanjov/react-rxjs-github-search/master/image.png)
+Reactive Redux State With RxJS using Observables: 
 
 ## Installation:
 1. `yarn`

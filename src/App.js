@@ -5,16 +5,16 @@ import { fetchCity } from './actions';
 class App extends Component {
   constructor(props) {
     super(props);
-    this.searchUser = this.searchUser.bind(this);
+    this.searchCity = this.searchCity.bind(this);
     this.state = {
       searchValue: null,
     }
   }
 
-  searchUser(event) {
-    this.setState({ searchValue: event.target.value}, () => {
+  searchCity(event) {
+    this.setState({ searchValue: event.target.value }, () => {
       this.props.fetchCity(this.state.searchValue);
-    })
+    })    
   }
 
   render() {
@@ -23,7 +23,7 @@ class App extends Component {
     return (
       <div>
         <h2>Search a city:</h2>
-        <input placeholder='Search your city' onChange={this.searchUser} />
+        <input placeholder='Search your city' onChange={this.searchCity} />
         {data && 
           <div>
             <p>{data.name}</p>

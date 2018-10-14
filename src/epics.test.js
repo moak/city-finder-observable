@@ -10,13 +10,6 @@ global.XMLHttpRequest = XMLHttpRequest;
 const epicMiddleware  = createEpicMiddleware(epics);
 const mockStore = configureMockStore([epicMiddleware]);
 
-var originalTimeout;
-
-beforeEach(function() {
-    originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
-    jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
-});
-
 describe('fetchCity', () => {
   let store;
 
@@ -30,34 +23,32 @@ describe('fetchCity', () => {
   })
 
   it('returns user from github', done => {
-    const payload = { username: 'user' };
+    const payload = { city: 'paris' };
     nock('https://restcountries.eu/rest/v2')
       .get('/capital/paris')
-      .reply(200, payload);
+      .reply(200, ['paris', 'parisss'] );
 
     const expectedActions = [
-      { type: FETCH_CITY_REQUESTED, payload },
-      { type: FETCH_CITY_SUCCESS, "payload": {"user": {"username": "user"} } }
+      { type: FETCH_CITY_REQUESTED, payload: { city: 'paris' } },
+      { type: FETCH_CITY_SUCCESS, payload : 'paris'}
     ];
 
     store.subscribe(() => {
-      const actions = store.getActions();
-      console.log('hmmmm', actions);
-      
+      const actions = store.getActions();      
       if (actions.length === expectedActions.length) {
         expect(actions).toEqual(expectedActions);
         done();
       }
     });
 
-    store.dispatch(fetchCity('user'));
+    store.dispatch(fetchCity('paris'));
   });
 
   it('handles error', done => {
-    const payload = { username: 'user' };
+    const payload = { city: 'paris' };
     nock('https://restcountries.eu/rest/v2')
-      .get('/capital/parsssss')
-      .reply(404);
+      .get('/capital/user')
+      .reply(500);
 
     const expectedActions = [
       { type: FETCH_CITY_REQUESTED, payload },
@@ -72,10 +63,6 @@ describe('fetchCity', () => {
       }
     });
 
-    store.dispatch(fetchCity('user'));
+    store.dispatch(fetchCity('paris'));
   });
-});
-
-afterEach(function() {
-  jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;
 });
